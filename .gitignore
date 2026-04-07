@@ -1,0 +1,32 @@
+# Environment variables — NEVER commit these
+.env
+.env.local
+.env.production
+
+# Dependencies
+node_modules/
+.npm
+
+# Build outputs
+dist/
+build/
+.vite/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/settings.json
+.idea/
+
+# Uploads (use cloud storage in production)
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Test coverage
+coverage/
