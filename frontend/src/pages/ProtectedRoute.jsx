@@ -1,25 +1,28 @@
-// src/pages/ProtectedRoute.jsx
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-export const ProtectedRoute = ({ children, adminOnly = false }) => {
-  const { isAuthenticated, isAdmin, isLoading } = useAuth();
+export default function ProtectedRoute({ children, role }) {
+  const { isAuthenticated, user, isLoading } = useAuth();
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+      <div style={{
+        minHeight: '100vh', background: '#0a0a0a',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        color: '#D2691E', fontFamily: 'Inter, sans-serif', fontSize: 16,
+      }}>
+        Loading...
       </div>
     );
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to={role === 'admin' ? '/admin' : '/login'} replace />;
   }
 
-  if (adminOnly && !isAdmin) {
-    return <Navigate to="/dashboard" replace />;
+  if (role && user?.role !== role) {
+    return <Navigate to="/" replace />;
   }
 
   return children;
-};
+}

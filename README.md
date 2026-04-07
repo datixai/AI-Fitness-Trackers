@@ -369,4 +369,4 @@ For setup help, API questions, or bugs:
 
 ---
 
-**Built with ❤️ for fitness coaches and their clients**
+**Built by Datix AI for fitness coaches and their clients**

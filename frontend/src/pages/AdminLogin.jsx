@@ -1,151 +1,86 @@
-// src/pages/AdminLogin.jsx
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { Activity, AlertCircle, Lock } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 export default function AdminLogin() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const { login } = useAuth();
   const navigate = useNavigate();
-  const { login, isLoading, error } = useAuth();
-  const { register, handleSubmit, formState: { errors } } = useForm();
-  const [apiError, setApiError] = useState('');
 
-  const onSubmit = async (data) => {
-    setApiError('');
-    const result = await login(data.email, data.password, 'admin');
-
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    const result = await login(email, password, 'admin');
+    setLoading(false);
     if (result.success) {
       navigate('/admin/dashboard');
     } else {
-      setApiError(result.error);
+      setError(result.error || 'Accesso non autorizzato');
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-dark to-primary flex items-center justify-center px-4">
-      <div className="w-full max-w-md">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center">
-              <Lock className="text-primary" size={28} />
-            </div>
-            <h1 className="text-3xl font-bold text-white">AM CULTURISMO</h1>
-          </div>
-          <h2 className="text-2xl font-bold text-white">Coach Login</h2>
-          <p className="text-primary mt-2">Admin Dashboard Access</p>
+    <div style={{
+      minHeight: '100vh', background: '#0a0a0a', display: 'flex',
+      alignItems: 'center', justifyContent: 'center', fontFamily: 'Inter, sans-serif',
+    }}>
+      <div style={{
+        background: '#141414', border: '1px solid rgba(255,255,255,0.08)',
+        borderRadius: 16, padding: 48, width: '100%', maxWidth: 400,
+      }}>
+        <div style={{ textAlign: 'center', marginBottom: 36 }}>
+          <div style={{
+            width: 52, height: 52, background: 'linear-gradient(135deg,#8B4513,#D2691E)',
+            borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontWeight: 900, fontSize: 22, color: '#fff', margin: '0 auto 16px',
+          }}>AM</div>
+          <h1 style={{ fontSize: 22, fontWeight: 700, color: '#fff', marginBottom: 6 }}>Admin Panel</h1>
+          <p style={{ color: '#555', fontSize: 14 }}>Accesso riservato</p>
         </div>
 
-        {/* Card */}
-        <div className="bg-white rounded-lg shadow-2xl p-8">
-          {/* Alert */}
-          {(apiError || error) && (
-            <div className="alert-danger mb-6 flex items-center gap-3">
-              <AlertCircle size={20} />
-              <span>{apiError || error}</span>
-            </div>
-          )}
+        {error && (
+          <div style={{
+            background: 'rgba(220,38,38,0.1)', border: '1px solid rgba(220,38,38,0.3)',
+            borderRadius: 8, padding: '12px 16px', marginBottom: 20,
+            color: '#f87171', fontSize: 14,
+          }}>{error}</div>
+        )}
 
-          {/* Security Notice */}
-          <div className="bg-primary bg-opacity-10 border-l-4 border-primary p-4 mb-6">
-            <p className="text-sm text-dark">
-              <strong>Secure Admin Access</strong><br/>
-              This area is restricted to authorized coaches only.
-            </p>
+        <form onSubmit={handleSubmit}>
+          <div style={{ marginBottom: 16 }}>
+            <label style={{ color: '#888', fontSize: 13, display: 'block', marginBottom: 6 }}>Email</label>
+            <input
+              type="email" value={email} onChange={e => setEmail(e.target.value)} required
+              style={{
+                width: '100%', padding: '12px 14px', background: '#1e1e1e',
+                border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8,
+                color: '#fff', fontSize: 15, outline: 'none', boxSizing: 'border-box',
+              }}
+            />
           </div>
-
-          {/* Form */}
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            {/* Email */}
-            <div>
-              <label className="label">Admin Email</label>
-              <input
-                type="email"
-                placeholder="coach@example.com"
-                className="input-field"
-                {...register('email', {
-                  required: 'Email is required',
-                  pattern: {
-                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    message: 'Invalid email format'
-                  }
-                })}
-              />
-              {errors.email && (
-                <p className="error-message">{errors.email.message}</p>
-              )}
-            </div>
-
-            {/* Password */}
-            <div>
-              <label className="label">Password</label>
-              <input
-                type="password"
-                placeholder="••••••••"
-                className="input-field"
-                {...register('password', {
-                  required: 'Password is required',
-                  minLength: {
-                    value: 8,
-                    message: 'Password must be at least 8 characters'
-                  }
-                })}
-              />
-              {errors.password && (
-                <p className="error-message">{errors.password.message}</p>
-              )}
-            </div>
-
-            {/* Submit Button */}
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="w-full btn bg-primary text-white py-3 mt-6"
-            >
-              {isLoading ? 'Logging in...' : 'Admin Login'}
-            </button>
-          </form>
-
-          {/* Divider */}
-          <div className="relative my-6">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300"></div>
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-gray-600">Need access?</span>
-            </div>
+          <div style={{ marginBottom: 24 }}>
+            <label style={{ color: '#888', fontSize: 13, display: 'block', marginBottom: 6 }}>Password</label>
+            <input
+              type="password" value={password} onChange={e => setPassword(e.target.value)} required
+              style={{
+                width: '100%', padding: '12px 14px', background: '#1e1e1e',
+                border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8,
+                color: '#fff', fontSize: 15, outline: 'none', boxSizing: 'border-box',
+              }}
+            />
           </div>
-
-          {/* Links */}
-          <div className="space-y-3">
-            <Link
-              to="/login"
-              className="block w-full text-center btn btn-secondary py-2"
-            >
-              Client Login
-            </Link>
-
-            <Link
-              to="/forgot-password"
-              className="block text-center text-primary hover:text-secondary font-medium"
-            >
-              Forgot Password?
-            </Link>
-
-            <a
-              href="mailto:support@amculturismo.com"
-              className="block text-center text-gray-600 hover:text-dark font-medium text-sm"
-            >
-              Contact Support
-            </a>
-          </div>
-        </div>
-
-        {/* Footer */}
-        <p className="text-center text-white mt-8 text-sm">
-          Secure area - All access is logged and monitored
-        </p>
+          <button type="submit" disabled={loading} style={{
+            width: '100%', padding: '13px', background: 'linear-gradient(135deg,#8B4513,#D2691E)',
+            color: '#fff', border: 'none', borderRadius: 8, fontSize: 15, fontWeight: 600,
+            cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.7 : 1,
+          }}>
+            {loading ? 'Accesso...' : 'Accedi al Pannello'}
+          </button>
+        </form>
       </div>
     </div>
   );
