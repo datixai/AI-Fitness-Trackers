@@ -37,9 +37,9 @@
   --ink-soft: #2b3a5c;
   --cream: #fbf8f3;
   --sand: #f3eee6;
-  --terra: #d9532f;
-  --terra-dark: #b8401f;
-  --terra-soft: #fbe9e2;
+  --terra: #0d8f82;
+  --terra-dark: #0a6f65;
+  --terra-soft: #e3f1ee;
   --sage: #4f7a63;
   --sage-soft: #e5efe8;
   --sky-soft: #e7eef9;
@@ -98,10 +98,10 @@
 
 @keyframes pulse-ring {
   0% {
-    box-shadow: 0 0 0 0 rgb(217 83 47 / 0.45);
+    box-shadow: 0 0 0 0 rgb(13 143 130 / 0.45);
   }
   100% {
-    box-shadow: 0 0 0 18px rgb(217 83 47 / 0);
+    box-shadow: 0 0 0 18px rgb(13 143 130 / 0);
   }
 }
 .pulse-ring {

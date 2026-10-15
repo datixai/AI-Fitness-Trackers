@@ -48,7 +48,7 @@ export function ProductPreview({ t, lang }: { t: Dictionary["preview"]; lang: Lo
           <div className="overflow-hidden rounded-[22px] border bg-cream">
             {/* window bar */}
             <div className="flex items-center gap-2 border-b bg-card px-4 py-3">
-              <span className="h-3 w-3 rounded-full bg-[#f2b8a6]" />
+              <span className="h-3 w-3 rounded-full bg-[#b7d9d3]" />
               <span className="h-3 w-3 rounded-full bg-[#f3d59a]" />
               <span className="h-3 w-3 rounded-full bg-[#b9d4c2]" />
               <span className="ml-3 hidden rounded-md bg-sand px-3 py-1 text-xs text-muted-foreground sm:inline">app.fisicora.com/clients/giulia-rossi</span>

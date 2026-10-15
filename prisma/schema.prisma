@@ -1,0 +1,57 @@
+// Local development uses SQLite. To move to Neon Postgres later:
+// change provider to "postgresql", set DATABASE_URL to the Neon string, run `npx prisma migrate dev`.
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         String   @default("professional") // professional | admin
+  locale       String   @default("en")
+  createdAt    DateTime @default(now())
+  clients      Client[]
+}
+
+model Client {
+  id        String        @id @default(cuid())
+  ownerId   String
+  owner     User          @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  name      String
+  email     String?
+  phone     String?
+  birthDate DateTime?
+  sex       String? // female | male | other
+  heightCm  Int?
+  type      String        @default("coach") // coach | nutrition
+  phase     String        @default("maintenance") // cut | offseason | dietBreak | maintenance
+  goal      String?
+  allergies String?
+  notes     String?
+  archived  Boolean       @default(false)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  measures  Measurement[]
+
+  @@index([ownerId])
+}
+
+model Measurement {
+  id        String   @id @default(cuid())
+  clientId  String
+  client    Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  date      DateTime @default(now())
+  weightKg  Float?
+  bodyFat   Float?
+  waistCm   Float?
+  note      String?
+
+  @@index([clientId, date])
+}

@@ -33,7 +33,7 @@ export function Hero({ t, lang }: { t: Dictionary["hero"]; lang: Locale }) {
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <a
               href="#demo"
-              className="group inline-flex items-center gap-2 rounded-full bg-terra px-7 py-3.5 text-base font-semibold text-white shadow-[0_10px_30px_-10px_rgb(217_83_47/0.7)] transition-all hover:-translate-y-0.5 hover:bg-terra-dark"
+              className="group inline-flex items-center gap-2 rounded-full bg-terra px-7 py-3.5 text-base font-semibold text-white shadow-[0_10px_30px_-10px_rgb(13_143_130/0.7)] transition-all hover:-translate-y-0.5 hover:bg-terra-dark"
             >
               {t.primary}
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

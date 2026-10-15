@@ -59,6 +59,9 @@ export function Navbar({ t, lang }: { t: Dictionary["nav"]; lang: Locale }) {
           <Link href={`/${lang}/app`} className="px-2 text-[15px] font-medium text-ink transition-colors hover:text-terra">
             {t.app}
           </Link>
+          <Link href={`/${lang}/login`} className="px-2 text-[15px] font-medium text-ink transition-colors hover:text-terra">
+            {t.login}
+          </Link>
           <a
             href="#demo"
             className="rounded-full bg-ink px-5 py-2.5 text-[15px] font-semibold text-cream transition-all hover:-translate-y-0.5 hover:bg-ink-soft"
@@ -95,6 +98,9 @@ export function Navbar({ t, lang }: { t: Dictionary["nav"]; lang: Locale }) {
             </Link>
             <Link href={`/${lang}/app`} className="rounded-full border px-4 py-2 text-sm font-semibold text-ink">
               {t.app}
+            </Link>
+            <Link href={`/${lang}/login`} className="rounded-full border px-4 py-2 text-sm font-semibold text-ink">
+              {t.login}
             </Link>
             <a href="#demo" onClick={() => setOpen(false)} className="flex-1 rounded-full bg-ink px-4 py-2 text-center text-sm font-semibold text-cream">
               {t.demo}

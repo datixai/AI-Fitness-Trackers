@@ -19,6 +19,7 @@ const en = {
     faq: "FAQ",
     demo: "Book a demo",
     app: "Live demo",
+    login: "Sign in",
   },
   hero: {
     badge: "Made in Europe for coaches and nutritionists",
@@ -255,6 +256,7 @@ const it: Dictionary = {
     faq: "FAQ",
     demo: "Prenota una demo",
     app: "Demo live",
+    login: "Accedi",
   },
   hero: {
     badge: "Creato in Europa per coach e nutrizionisti",

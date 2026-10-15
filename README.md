@@ -10,10 +10,27 @@ Developed by Datix AI.
 - Clickable app demo with sample data (`/en/app`, `/it/app`): client records, simulated AI session with transcript and summary, measurements, meal plan with phase based macros, training split and check-in diary
 - Demo request form (saved locally to `data/demo-requests.jsonl` for now)
 
+## Portal (phase 2, in progress)
+
+- Login with signed cookie sessions (`/en/login`, `/it/login`), bcrypt passwords, login rate limit
+- Client list and client records with measurements and weight chart (`/en/clients`)
+- Each professional only sees their own clients
+- Local SQLite database via Prisma. Move to Neon Postgres later by changing the provider in `prisma/schema.prisma` and `DATABASE_URL`
+
+Setup after cloning:
+
+```bash
+cp .env.example .env
+npm install
+npx prisma db push
+npm run db:seed      # creates local test accounts from .env (SEED_EMAIL, SEED_PASSWORD)
+```
+
 ## Tech stack
 
 - Next.js 16 (App Router), React 19, TypeScript
 - Tailwind CSS v4
+- Prisma 6 (SQLite locally), jose, bcryptjs
 - Lucide icons
 
 ## Run locally
