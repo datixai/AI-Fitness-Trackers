@@ -1,0 +1,136 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), Georgia, serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-card: var(--card);
+
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-cream: var(--cream);
+  --color-sand: var(--sand);
+  --color-terra: var(--terra);
+  --color-terra-dark: var(--terra-dark);
+  --color-terra-soft: var(--terra-soft);
+  --color-sage: var(--sage);
+  --color-sage-soft: var(--sage-soft);
+  --color-sky-soft: var(--sky-soft);
+  --color-gold: var(--gold);
+}
+
+:root {
+  --background: #fbf8f3;
+  --foreground: #14213d;
+  --card: #ffffff;
+  --muted: #f3eee6;
+  --muted-foreground: #5b6478;
+  --border: #e8e1d6;
+
+  --ink: #14213d;
+  --ink-soft: #2b3a5c;
+  --cream: #fbf8f3;
+  --sand: #f3eee6;
+  --terra: #d9532f;
+  --terra-dark: #b8401f;
+  --terra-soft: #fbe9e2;
+  --sage: #4f7a63;
+  --sage-soft: #e5efe8;
+  --sky-soft: #e7eef9;
+  --gold: #e3a52d;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+  section[id] {
+    scroll-margin-top: 88px;
+  }
+}
+
+/* Reveal on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+.float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgb(217 83 47 / 0.45);
+  }
+  100% {
+    box-shadow: 0 0 0 18px rgb(217 83 47 / 0);
+  }
+}
+.pulse-ring {
+  animation: pulse-ring 1.4s ease-out infinite;
+}
+
+@keyframes bar {
+  0%,
+  100% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+.wave-bar {
+  transform-origin: center;
+  animation: bar 0.9s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .float-slow,
+  .pulse-ring,
+  .wave-bar {
+    animation: none;
+  }
+}
